@@ -1,4 +1,0 @@
-"Bom dia",
-"Eu sou o Thyago Quintas!",
-"Vou ensinar você a fazer este puzzle!"
-

@@ -171,12 +171,7 @@ void Creditos() {
 
 };
 
-  void parabens()
-  {
-      LimpaTela();
-      ALLEGRO_FONT* fonte = al_load_font("./font.ttf", 30, 0);
-      al_draw_text(fonte, al_map_rgb(255, 255, 255), tela_largura / 2, tela_altura / 2, ALLEGRO_ALIGN_CENTER, "Obrigado, aventureiro, espero te encontrar novamente em um futuro distante...");
-  };
+  
    
 
 int Collide(Rectangle *rect1, Rectangle *rect2) {
@@ -321,8 +316,8 @@ int main() {
       "moinho..."};
 
   const char *Dialogo_npc2[] = {
-      "Oi...!", "Você pode me ajudar?",
-      "Posso pedir uma ajuda sua? Preciso conectar dois blocos de energia! "
+      "Oi, eu sou Guilherme Rey!", "Você pode me ajudar?",
+      "Preciso resolver uma equação! Dá uma olhadinha..."
       "Conto com você.",
       "Muito obrigado!"};
 
@@ -418,7 +413,7 @@ int main() {
   int spriteHeight = 148;
   bool is_any_key_pressed = false;
   bool principal = false;
-  bool puzzleFailed = false;
+  float opacidade = 1.0; // Começa completamente transparente
   int displayWidth = al_get_display_width(display);
   int displayHeight = al_get_display_height(display);
   al_start_timer(timer);
@@ -432,7 +427,7 @@ int main() {
     randI = rand() % 100 + 3;
   }
   int R = randU / randI;
-
+  bool exibir_parabens = false;
   while (!sair) {
     ALLEGRO_EVENT event;
     al_wait_for_event(event_queue, &event);
@@ -570,7 +565,7 @@ int main() {
 
       al_draw_scaled_bitmap(npcSprite2, 0, 0, al_get_bitmap_width(npcSprite2),
                             al_get_bitmap_height(npcSprite2), npc2->x, npc2->y,
-                            45, 55, 0);
+                            40, 50, 0);
 
       al_draw_scaled_bitmap(playerSprite, 105 * (int)frame, current_frame_y,
                             spriteWidth, spriteHeight, player->x, player->y, 45,
@@ -769,65 +764,76 @@ int main() {
 			  
 			  break;
       }
+    
 
-	  if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
-		  if (event.keyboard.keycode == ALLEGRO_KEY_1 && btnCerto == 1) {
-              al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+      if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
+          switch (event.keyboard.keycode) {
+          case ALLEGRO_KEY_1:
+              if (btnCerto == 1) {
+                  al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                      tela_altura / 2, ALLEGRO_ALIGN_CENTER,
+                      "VOCÊ COMPLETOU O PUZZLE!");
+                  al_flip_display();
+                  jogo_finalizado2 = true;
+                  dragging = 0;
+                  pontos++;
+                  al_rest(2.0);
+                  EstadoTela = jogando;
+              }
+              else if (btnCerto != 1) {
+                  al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                      tela_altura / 2, ALLEGRO_ALIGN_CENTER,
+                      "VOCÊ ERROU! TENTE NOVAMENTE.");
+                  
+              }
+              break;
+
+          case ALLEGRO_KEY_2:
+              if (btnCerto == 2) {
+                  al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
                   tela_altura / 2, ALLEGRO_ALIGN_CENTER,
                   "VOCÊ COMPLETOU O PUZZLE!");
               al_flip_display();
               jogo_finalizado2 = true;
               dragging = 0;
               pontos++;
+              al_rest(2.0);
+              EstadoTela = jogando;
+              }
+              else if (btnCerto != 2) {
+                  al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                      tela_altura / 2, ALLEGRO_ALIGN_CENTER,
+                      "VOCÊ ERROU! TENTE NOVAMENTE.");
+                  
+              }
+              break;
 
-              al_rest(2.0);
-              EstadoTela = jogando;
-		  } else if (btnCerto != 1) {
-              al_draw_text(fonte, al_map_rgb(255, 255, 255), tela_largura / 2,
-                  tela_altura / 2, ALLEGRO_ALIGN_CENTER, "VOCÊ FALHOU...");
-              al_flip_display();
-              al_rest(2.0);
-              EstadoTela = jogando;
+          case ALLEGRO_KEY_3:
+              if (btnCerto == 3) {
+                  al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                      tela_altura / 2, ALLEGRO_ALIGN_CENTER,
+                      "VOCÊ COMPLETOU O PUZZLE!");
+                  al_flip_display();
+                  jogo_finalizado2 = true;
+                  dragging = 0;
+                  pontos++;
+                  al_rest(2.0);
+                  EstadoTela = jogando;
+              }
+              else if (btnCerto != 3) {
+                  al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                      tela_altura / 2, ALLEGRO_ALIGN_CENTER,
+                      "VOCÊ ERROU! TENTE NOVAMENTE.");
+                  
+              }
+              break;
           }
+      }
 
-		  if (event.keyboard.keycode == ALLEGRO_KEY_2 && btnCerto == 2) {
-			  al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
-				  tela_altura / 2, ALLEGRO_ALIGN_CENTER,
-				  "VOCÊ COMPLETOU O PUZZLE!");
-			  al_flip_display();
-			  jogo_finalizado2 = true;
-			  dragging = 0;
-			  pontos++;
-
-			  al_rest(2.0);
-			  EstadoTela = jogando;
-		  } else if (btnCerto != 2) {
-              al_draw_text(fonte, al_map_rgb(255, 255, 255), tela_largura / 2,
-                  tela_altura / 2, ALLEGRO_ALIGN_CENTER, "VOCÊ FALHOU...");
-              al_flip_display();
-              al_rest(2.0);
-              EstadoTela = jogando;
-          }
-
-		  if (event.keyboard.keycode == ALLEGRO_KEY_3 && btnCerto == 3) {
-			  al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
-				  tela_altura / 2, ALLEGRO_ALIGN_CENTER,
-				  "VOCÊ COMPLETOU O PUZZLE!");
-			  al_flip_display();
-			  jogo_finalizado2 = true;
-			  dragging = 0;
-			  pontos++;
-			  al_rest(2.0);
-			  EstadoTela = jogando;
-		  } else if (btnCerto != 3){
-              al_draw_text(fonte, al_map_rgb(255, 255, 255), tela_largura / 2,
-                  tela_altura / 2, ALLEGRO_ALIGN_CENTER, "VOCÊ FALHOU...");
-              al_flip_display();
-              al_rest(2.0);
-              EstadoTela = jogando;
-          }
+      
 
           if (jogo_finalizado2) {
+              
               EstadoTela = jogando;
 
           }
@@ -835,11 +841,29 @@ int main() {
           
           if(pontos == 2)
           {
-              parabens();
-              al_rest(5.0);
-              sair = true;
+              al_flip_display();
+              exibir_parabens = true;
+              al_rest(3.0);
+              
           }
 
+          if (exibir_parabens) {
+              al_clear_to_color(al_map_rgb(247, 255, 239)); // Limpa a tela com a cor de fundo
+              al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                  tela_altura / 2, ALLEGRO_ALIGN_CENTER,
+                  "Obrigado por jogar!");
+              al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                  tela_altura / 3, ALLEGRO_ALIGN_CENTER,
+                  "PARABÉNS! VOCÊ FINALIZOU O JOGO!");
+              al_flip_display();
+
+              al_rest(3.0); // Aguarde um pouco antes de retornar ao jogo
+
+              // Volte ao estado inicial ou carregue a próxima fase do jogo
+              // Altere o estado do jogo conforme necessário aqui
+
+              sair = true; // Redefina exibir_parabens para evitar a exibição contínua
+          }
     }
 
     

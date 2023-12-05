@@ -171,8 +171,8 @@ void Creditos() {
 
 };
 
-  
-   
+
+
 
 int Collide(Rectangle *rect1, Rectangle *rect2) {
 
@@ -308,18 +308,18 @@ int main() {
   }
 
   const char *Dialogo[] = {
-      "Olá, eu sou o Thyago Quintas!",
-      "Estou muito machucado para fazer algumas coisas manuais...",
-      "Posso pedir uma ajuda sua? Preciso conectar dois blocos de energia! "
-      "Conto com você.",
-      "Muito obrigado! Talvez seja interessante você checar aquele cara ali no "
+      "Olá, eu me chamo Thyago Quintas!",
+      "Estou muito machucado para fazer algumas tarefas manuais...",
+      "Posso pedir sua ajuda? Preciso conectar esses dois blocos de energia."
+      "Conto com você!",
+      "Muito obrigado! Talvez seja interessante você checar aquele cara perdo do"
       "moinho..."};
 
   const char *Dialogo_npc2[] = {
-      "Oi, eu sou Guilherme Rey!", "Você pode me ajudar?",
-      "Preciso resolver uma equação! Dá uma olhadinha..."
-      "Conto com você.",
-      "Muito obrigado!"};
+      "Olá, meu nome é Guilherme Rey!", "Será que você poderia me ajudar?",
+      "Preciso resolver uma equação basica! Dá uma olhadinha nisso aqui..."
+      "Eu conto com você!",
+      "Valeu pela ajuda, agora posso dormir em paz! xD"};
 
   Rect rect1 = {0, 0, /* Define a posição e tamanho do primeiro retângulo */
                 50,
@@ -771,7 +771,7 @@ int main() {
 			  
 			  break;
       }
-    
+
 
       if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
           switch (event.keyboard.keycode) {
@@ -876,10 +876,7 @@ int main() {
           if (jogo_finalizado2) {
               
               EstadoTela = jogando;
-
-          }
-            
-          
+          }         
     }
 
     if (pontos > 1)
@@ -894,8 +891,6 @@ int main() {
         exibir_gameover = true;
         al_rest(3.0);
     }
-
-
 
     if (exibir_parabens) {
         al_clear_to_color(al_map_rgb(247, 255, 239)); // Limpa a tela com a cor de fundo

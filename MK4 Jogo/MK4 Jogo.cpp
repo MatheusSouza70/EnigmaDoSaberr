@@ -406,6 +406,7 @@ int main() {
   bool jogo_finalizado = false;
   bool jogo_finalizado2 = false;
   bool jogo_finalizado3 = false;
+  int vidas = 3;
   bool key_right = false, key_left = false, key_down = false, key_up = false;
   float frame = 0.0f;
   int current_frame_y = 148;
@@ -413,9 +414,9 @@ int main() {
   int spriteHeight = 148;
   bool is_any_key_pressed = false;
   bool principal = false;
-  float opacidade = 1.0; // Começa completamente transparente
   int displayWidth = al_get_display_width(display);
   int displayHeight = al_get_display_height(display);
+ 
   al_start_timer(timer);
 
   srand(time(NULL));
@@ -428,6 +429,7 @@ int main() {
   }
   int R = randU / randI;
   bool exibir_parabens = false;
+  bool exibir_gameover = false;
   while (!sair) {
     ALLEGRO_EVENT event;
     al_wait_for_event(event_queue, &event);
@@ -584,7 +586,7 @@ int main() {
                          Dialogo[dialogo_atual]);
             al_flip_display();
             dialogo_atual++;
-            al_rest(0.5); // Espera por 2 segundos entre cada parte do diálogo
+            al_rest(1.5); // Espera por 2 segundos entre cada parte do diálogo
             tecla_e_pressionada = false;
           }
 
@@ -623,7 +625,7 @@ int main() {
                          Dialogo_npc2[dialogo_atual2]);
             al_flip_display();
             dialogo_atual2++;
-            al_rest(0.5); // Espera por 2 segundos entre cada parte do diálogo
+            al_rest(1.5); // Espera por 2 segundos entre cada parte do diálogo
             tecla_e_pressionada = false;
           }
 
@@ -721,6 +723,7 @@ int main() {
         al_rest(2.0);
         ResetRectangles(&rect1, &rect2);
         EstadoTela = jogando;
+        vidas = vidas - 1;
       }
 
       al_clear_to_color(al_map_rgb(0, 0, 0));     // Limpa o display.
@@ -777,14 +780,14 @@ int main() {
                   jogo_finalizado2 = true;
                   dragging = 0;
                   pontos++;
-                  al_rest(2.0);
+                  al_rest(1.0);
                   EstadoTela = jogando;
               }
               else if (btnCerto != 1) {
                   al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
                       tela_altura / 2, ALLEGRO_ALIGN_CENTER,
-                      "VOCÊ ERROU! TENTE NOVAMENTE.");
-                  
+                      "VOCÊ ERROU!");
+                  vidas = vidas - 1;
               }
               break;
 
@@ -797,14 +800,14 @@ int main() {
               jogo_finalizado2 = true;
               dragging = 0;
               pontos++;
-              al_rest(2.0);
+              al_rest(1.0);
               EstadoTela = jogando;
               }
               else if (btnCerto != 2) {
                   al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
                       tela_altura / 2, ALLEGRO_ALIGN_CENTER,
-                      "VOCÊ ERROU! TENTE NOVAMENTE.");
-                  
+                      "VOCÊ ERROU!");
+                  vidas = vidas - 1;
               }
               break;
 
@@ -817,35 +820,38 @@ int main() {
                   jogo_finalizado2 = true;
                   dragging = 0;
                   pontos++;
-                  al_rest(2.0);
+                  al_rest(1.0);
                   EstadoTela = jogando;
               }
               else if (btnCerto != 3) {
                   al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
                       tela_altura / 2, ALLEGRO_ALIGN_CENTER,
-                      "VOCÊ ERROU! TENTE NOVAMENTE.");
-                  
+                      "VOCÊ ERROU!");
+                  vidas = vidas - 1;
               }
               break;
           }
       }
-
-      
 
           if (jogo_finalizado2) {
               
               EstadoTela = jogando;
 
           }
-          
-          
+            
           if(pontos == 2)
           {
               al_flip_display();
               exibir_parabens = true;
               al_rest(3.0);
               
+          } else if (vidas == 1) {
+              al_flip_display();
+              exibir_gameover = true;
+              al_rest(3.0);
           }
+
+
 
           if (exibir_parabens) {
               al_clear_to_color(al_map_rgb(247, 255, 239)); // Limpa a tela com a cor de fundo
@@ -864,9 +870,25 @@ int main() {
 
               sair = true; // Redefina exibir_parabens para evitar a exibição contínua
           }
-    }
 
-    
+          if (exibir_gameover) {
+              al_clear_to_color(al_map_rgb(247, 255, 239)); // Limpa a tela com a cor de fundo
+              al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                  tela_altura / 2, ALLEGRO_ALIGN_CENTER,
+                  "Talvez você deva tentar novamente...!");
+              al_draw_text(fonte, al_map_rgb(0, 0, 0), tela_largura / 2,
+                  tela_altura / 3, ALLEGRO_ALIGN_CENTER,
+                  "VOCê PERDEU!");
+              al_flip_display();
+
+              al_rest(3.0); // Aguarde um pouco antes de retornar ao jogo
+
+              // Volte ao estado inicial ou carregue a próxima fase do jogo
+              // Altere o estado do jogo conforme necessário aqui
+
+              sair = true; // Redefina exibir_parabens para evitar a exibição contínua
+          }
+    }
 
     al_flip_display();
   }

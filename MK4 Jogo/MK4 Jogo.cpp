@@ -307,6 +307,19 @@ int main() {
     return -1;
   }
 
+  ALLEGRO_BITMAP* rui = al_load_bitmap("./rui.png");
+  if (!rui)
+  {
+      fprintf(stderr, "Falha ao carregar triangulo ruim \n");
+    }
+
+  ALLEGRO_BITMAP* claroicon = al_load_bitmap("./iconclarinho.png");
+  if (!claroicon)
+  {
+      fprintf(stderr, "Falha ao carregar clarinho");
+  }
+
+
   const char *Dialogo[] = {
       "Olá, eu sou o Thyago Quintas!",
       "Estou muito machucado para fazer algumas coisas manuais...",
@@ -352,6 +365,8 @@ int main() {
     fprintf(stderr, "Falha ao criar a janela.\n");
     return -1;
   }
+  al_set_window_title(display,"Enigma do Saber 0.001");
+  al_set_display_icon(display, claroicon);
 
   ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
   if (!event_queue) {
@@ -562,8 +577,8 @@ int main() {
       al_draw_scaled_bitmap(background, 0, 0, al_get_bitmap_width(background),
                             al_get_bitmap_height(background), 0, 0,
                             tela_largura, tela_altura, 0);
-      al_draw_textf(fonte, al_map_rgb(255, 255, 255), 15, 15, NULL, "pontos = %d", pontos);
-      al_draw_textf(fonte, al_map_rgb(255, 255, 255), 15, 40, NULL, "vida = %d", vidas);
+      al_draw_textf(fonte, al_map_rgb(255, 255, 255), 15, 15, NULL, "Pontos = %d", pontos);
+      al_draw_textf(fonte, al_map_rgb(255, 255, 255), 15, 40, NULL, "Vidas = %d", vidas);
 
       al_draw_scaled_bitmap(npcSprite1, 0, 0, al_get_bitmap_width(npcSprite1),
                             al_get_bitmap_height(npcSprite1), npc->x, npc->y, 45,
@@ -727,6 +742,7 @@ int main() {
         al_rest(2.0);
         ResetRectangles(&rect1, &rect2);
         EstadoTela = jogando;
+        EstadoTela = jogando;
         vidas = vidas - 1;
       }
 
@@ -740,15 +756,17 @@ int main() {
     else if (EstadoTela == puzzle2) {
 
       // desenhando a caixa de dialogo
+
       al_clear_to_color(al_map_rgb(247, 255, 239));
+
       al_draw_rectangle(450, 50, 750, 200, al_map_rgb(0, 0, 0), 5);
       al_draw_filled_rectangle(445, 70, 455, 100, al_map_rgb(247, 255, 239));
       al_draw_line(440, 70, 460, 70, al_map_rgb(0, 0, 0), 5);
       al_draw_line(435, 100, 465, 100, al_map_rgb(0, 0, 0), 5);
-      al_draw_triangle(50, 10, 10, 70, 70, 70, al_map_rgb(0, 0, 0), 5);
+      al_draw_bitmap(rui, 50, 10, 0);
       al_draw_textf(fonte, al_map_rgb(0, 0, 0), 300, 50, NULL, "U = %d", randU);
       al_draw_textf(fonte, al_map_rgb(0, 0, 0), 500, 10, NULL, "I = %d", randI);
-      al_draw_textf(fonte, al_map_rgb(0, 0, 0), 770, 50, NULL, "R = %d", btnCerto);
+      al_draw_text(fonte, al_map_rgb(0, 0, 0), 770, 50, NULL, "R = ?");
 
       switch(btnCerto){
           case 1:
@@ -889,7 +907,7 @@ int main() {
         al_rest(3.0);
 
     }
-    else if (vidas == 1) {
+    else if (vidas < 1) {
         al_flip_display();
         exibir_gameover = true;
         al_rest(3.0);

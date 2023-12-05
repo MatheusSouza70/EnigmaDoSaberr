@@ -1,5 +1,12 @@
 ﻿  MK4 Jogo.cpp
+<<<<<<< HEAD
 C:\Users\Vini\source\repos\ESSA DA CERTO PORRA\EnigmaDoSaberr\MK4 Jogo\MK4 Jogo.cpp(469,21): warning C4553: '==': o resultado da expressão não usado; você pretendia que fosse '='?
 C:\Users\Vini\source\repos\ESSA DA CERTO PORRA\EnigmaDoSaberr\MK4 Jogo\MK4 Jogo.cpp(472,21): warning C4553: '==': o resultado da expressão não usado; você pretendia que fosse '='?
 C:\Users\Vini\source\repos\ESSA DA CERTO PORRA\EnigmaDoSaberr\MK4 Jogo\MK4 Jogo.cpp(476,21): warning C4553: '==': o resultado da expressão não usado; você pretendia que fosse '='?
   MK4 Jogo.vcxproj -> C:\Users\Vini\source\repos\ESSA DA CERTO PORRA\EnigmaDoSaberr\x64\Debug\MK4 Jogo.exe
+=======
+C:\Users\EricDonatoPulcinodos\source\repos\EnigmaDoSaberr\MK4 Jogo\MK4 Jogo.cpp(454,21): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\EricDonatoPulcinodos\source\repos\EnigmaDoSaberr\MK4 Jogo\MK4 Jogo.cpp(457,21): warning C4553: '==': result of expression not used; did you intend '='?
+C:\Users\EricDonatoPulcinodos\source\repos\EnigmaDoSaberr\MK4 Jogo\MK4 Jogo.cpp(461,21): warning C4553: '==': result of expression not used; did you intend '='?
+  MK4 Jogo.vcxproj -> C:\Users\EricDonatoPulcinodos\Source\Repos\EnigmaDoSaberr\x64\Debug\MK4 Jogo.exe
+>>>>>>> ba6710a42281e069434219410d9c621bb75b6bb5
